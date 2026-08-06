@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4453bc5099e5e3742974589f75c3ce34, type: 3}
+  m_Name: Purple_Story_09_Quest5Offer
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 11400000, guid: fad9a2135a660fb4dbd58f5d710a10e0, type: 2}
+    text: "\u6700\u540E\u7684\u8BD5\u70BC\u6765\u4E86\uFF01\u4F60\u5DF2\u7ECF\u79EF\u7D2F\u4E86\u4E0D\u5C11\u7ECF\u9A8C\u3002\u73B0\u5728\u6253\u5F00\u6280\u80FD\u6811\u9762\u677F\uFF08\u6309ToggleSkillTree\uFF09\uFF0C\u7528\u6280\u80FD\u70B9\u89E3\u9501'\u6325\u780D'\u6280\u80FD\uFF0C\u6216\u8005\u63D0\u5347\u4F60\u7684\u751F\u547D\u4E0A\u9650\u3002"
+  - speaker: {fileID: 11400000, guid: fad9a2135a660fb4dbd58f5d710a10e0, type: 2}
+    text: "\u7136\u540E\uFF0C\u8BD5\u8BD5\u5207\u6362\u6B66\u5668\uFF08\u6309ChangeEquipment\uFF09\u4F7F\u7528\u5F13\u7BAD\u3002\u79EF\u7D2F\u81F3\u5C1130\u91D1\u5E01\u8BC1\u660E\u4F60\u7684\u7ECF\u6D4E\u80FD\u529B\uFF0C\u518D\u7528\u4EFB\u610F\u6B66\u5668\u51FB\u8D25\u4E00\u4E2A\u602A\u7269\u3002\u53BB\u5427\uFF01"
+  options: []
+  offerquestOnEnd: {fileID: 11400000, guid: 8646040ad9c837948b4886dcdf75c4d8, type: 2}
+  requiredCompleteQuests: []
+  requiredCompletedQuests:
+  - {fileID: 11400000, guid: 348a3634eb92d4d449d3bac3f68132dc, type: 2}
+  turnInQuestOnEnd: {fileID: 0}
+  requiredNPCs: []
+  requiredLocatons: []
+  requiredItems: []
+  removeAfterPlay: 1
+  removeTheseOnPlay: []

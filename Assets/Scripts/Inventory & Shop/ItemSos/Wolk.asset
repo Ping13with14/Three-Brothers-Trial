@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68aac35ee72018a4693bf0dd5578e8af, type: 3}
+  m_Name: Wolk
+  m_EditorClassIdentifier: 
+  itemName: "\u77FF\u77F3"
+  itemDescription: "\u91CD\u8981\u539F\u6750\u6599\uFF0C\u53EF\u4EE5\u7528\u4E8E\u94F8\u9020\u5DE5\u5177\u4E0E\u88C5\u5907"
+  icon: {fileID: 21300000, guid: 9f6c33a01ddca41df86e012fd10f4d76, type: 3}
+  isGold: 0
+  isEXP: 0
+  stackSize: 3
+  currentHealth: 0
+  maxHealth: 0
+  speed: 0
+  damage: 0
+  duration: 0

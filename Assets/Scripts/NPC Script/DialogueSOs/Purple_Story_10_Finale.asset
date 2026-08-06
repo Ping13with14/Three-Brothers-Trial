@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4453bc5099e5e3742974589f75c3ce34, type: 3}
+  m_Name: Purple_Story_10_Finale
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 11400000, guid: fad9a2135a660fb4dbd58f5d710a10e0, type: 2}
+    text: "\u4F60\u505A\u5230\u4E86\uFF01\u4F60\u5B8C\u6210\u4E86\u6240\u6709\u4E94\u9879\u8BD5\u70BC\u2014\u2014\u91CD\u805A\u5144\u5F1F\u3001\u6E05\u527F\u602A\u7269\u3001\u5F81\u96C6\u7269\u8D44\u3001\u63A2\u7D22\u79D8\u5BC6\u3001\u8BC1\u660E\u5B9E\u529B\u3002"
+  - speaker: {fileID: 11400000, guid: fad9a2135a660fb4dbd58f5d710a10e0, type: 2}
+    text: "\u4ECE\u4ECA\u5929\u8D77\uFF0C\u4F60\u5C31\u662F\u7EFF\u4E18\u7684\u5B88\u62A4\u8005\uFF01\u4E09\u5144\u5F1F\u4F1A\u4E00\u76F4\u5728\u8FD9\u91CC\u652F\u6301\u4F60\u3002\u613F\u5149\u660E\u4E0E\u4F60\u540C\u5728\uFF0C\u52C7\u8005\uFF01"
+  options: []
+  offerquestOnEnd: {fileID: 0}
+  requiredCompleteQuests:
+  - {fileID: 11400000, guid: 8646040ad9c837948b4886dcdf75c4d8, type: 2}
+  requiredCompletedQuests: []
+  turnInQuestOnEnd: {fileID: 11400000, guid: 8646040ad9c837948b4886dcdf75c4d8, type: 2}
+  requiredNPCs: []
+  requiredLocatons: []
+  requiredItems: []
+  removeAfterPlay: 1
+  removeTheseOnPlay: []

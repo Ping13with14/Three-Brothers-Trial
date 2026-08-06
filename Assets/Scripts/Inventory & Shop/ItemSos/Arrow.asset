@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68aac35ee72018a4693bf0dd5578e8af, type: 3}
+  m_Name: Arrow
+  m_EditorClassIdentifier: 
+  itemName: "\u7BAD\u77E2"
+  itemDescription: "\u666E\u901A\u5236\u5F0F\u7BAD\u77E2\uFF0C\u642D\u914D\u5F13\u4F7F\u7528\u3002\u7BAD\u5934\u7ECF\u6253\u78E8\u5904\u7406\uFF0C\u98DE\u884C\u5E73\u7A33\uFF0C\u662F\u8FDC\u7A0B\u730E\u6740\u7684\u57FA\u7840\u5F39\u836F\u3002"
+  icon: {fileID: 21300000, guid: c272e6d3dde6e4ad58af98df64cbaf46, type: 3}
+  isGold: 0
+  isEXP: 0
+  stackSize: 5
+  currentHealth: 0
+  maxHealth: 0
+  speed: 0
+  damage: 0
+  duration: 0

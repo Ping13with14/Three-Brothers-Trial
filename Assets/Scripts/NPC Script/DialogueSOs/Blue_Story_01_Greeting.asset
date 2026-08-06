@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4453bc5099e5e3742974589f75c3ce34, type: 3}
+  m_Name: Blue_Story_01_Greeting
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 11400000, guid: 6fd869ab779145b48ac1f8712e1dfe1d, type: 2}
+    text: "\u4F60\u597D\uFF0C\u52C7\u8005\uFF01\u6211\u662FBlue Bob\uFF0CPurple\u7684\u4E8C\u5F1F\u3002\u5F88\u9AD8\u5174\u89C1\u5230\u4F60\uFF01"
+  - speaker: {fileID: 11400000, guid: 6fd869ab779145b48ac1f8712e1dfe1d, type: 2}
+    text: "\u6211\u54E5\u54E5Purple\u4E00\u5B9A\u5728\u627E\u4F60\u3002\u4F60\u89C1\u5230Yellow\u4E86\u5417\uFF1F\u4ED6\u5C31\u559C\u6B22\u5728\u89D2\u843D\u91CC\u5531\u6B4C\uFF0C\u6709\u65F6\u5019\u4E0D\u613F\u610F\u7406\u964C\u751F\u4EBA\u5462\u3002"
+  options: []
+  offerquestOnEnd: {fileID: 0}
+  requiredCompleteQuests: []
+  requiredCompletedQuests: []
+  turnInQuestOnEnd: {fileID: 0}
+  requiredNPCs: []
+  requiredLocatons: []
+  requiredItems: []
+  removeAfterPlay: 1
+  removeTheseOnPlay: []

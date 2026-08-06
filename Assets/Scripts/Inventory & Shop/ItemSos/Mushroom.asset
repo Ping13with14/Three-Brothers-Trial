@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68aac35ee72018a4693bf0dd5578e8af, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: 
+  itemName: "\u6FC0\u7D20\u8611\u83C7"
+  itemDescription: "\u5438\u6536\u5927\u5730\u9B54\u529B\u751F\u957F\u7684\u690D\u7269\u53EF\u4EE5\u77ED\u6682\u63D0\u9AD8\u901F\u5EA6\u4E0E\u6700\u5927\u751F\u547D\u503C\uFF0C\u6709\u6548\u671F120S"
+  icon: {fileID: 21300000, guid: 934341dea8996f646879bad889c6ee10, type: 3}
+  isGold: 0
+  isEXP: 0
+  stackSize: 2
+  currentHealth: 0
+  maxHealth: 2
+  speed: 3
+  damage: 0
+  duration: 2
