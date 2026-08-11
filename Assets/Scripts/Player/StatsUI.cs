@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// 属性面板UI：按 Tab 切换显示，展示伤害、速度等玩家属性
+/// </summary>
 public class StatsUI : MonoBehaviour
 {
-    public GameObject[] statsSlots;
-    public CanvasGroup statsCanvas;
+    public GameObject[] statsSlots;          // 属性槽位数组（0=伤害, 1=速度）
+    public CanvasGroup statsCanvas;          // 属性面板 CanvasGroup
 
-    private bool statsOpen = false;
+    private bool statsOpen = false;          // 面板是否已打开
 
     private void Start()
     {
@@ -31,6 +34,9 @@ public class StatsUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 刷新伤害属性显示
+    /// </summary>
     public void UpdateDamage()
     {
         if (statsSlots == null || statsSlots.Length < 1 || statsSlots[0] == null) return;
@@ -43,6 +49,9 @@ public class StatsUI : MonoBehaviour
         statsSlots[0].SetActive(dmg > 0);
     }
 
+    /// <summary>
+    /// 刷新速度属性显示
+    /// </summary>
     public void UpdateSpeed()
     {
         if (statsSlots == null || statsSlots.Length < 2 || statsSlots[1] == null) return;
@@ -55,6 +64,9 @@ public class StatsUI : MonoBehaviour
         statsSlots[1].SetActive(spd > 0);
     }
 
+    /// <summary>
+    /// 刷新全部属性显示
+    /// </summary>
     public void UpdateAllStates()
     {
         UpdateDamage();

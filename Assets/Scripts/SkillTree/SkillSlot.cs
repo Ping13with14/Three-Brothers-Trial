@@ -6,20 +6,25 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 技能槽：处理单个技能的升级/退还/解锁逻辑，管理UI显示
+/// </summary>
 public class SkillSlot : MonoBehaviour
 {
-    public List<SkillSlot> prerequisiteSkillSlots;
+    [Header("前置技能")]
+    public List<SkillSlot> prerequisiteSkillSlots;  // 解锁此前置条件的前置技能列表
 
-    public SkillSo skillSo;
+    [Header("技能数据")]
+    public SkillSo skillSo;                          // 技能数据 ScriptableObject
 
-    public int currentLevel;
-    public bool isUnlocked;
+    [Header("当前状态")]
+    public int currentLevel;                         // 当前技能等级
+    public bool isUnlocked;                          // 是否已解锁
 
-    public Image skillIcon;
-    public Button skillButton;
-    public TMP_Text skillLevelText;
-
-    // 技能事件已迁移至 GameEvents（OnAbilityPointSpent / OnSkillMaxed / OnAbilityPointRefunded）
+    [Header("UI 组件")]
+    public Image skillIcon;                          // 技能图标
+    public Button skillButton;                       // 技能按钮
+    public TMP_Text skillLevelText;                 // 技能等级文本
 
     private void OnValidate()
     {
@@ -27,6 +32,9 @@ public class SkillSlot : MonoBehaviour
             UpdateUI();
     }
 
+    /// <summary>
+    /// 尝试升级技能：已解锁且未满级时可升级，触发 OnAbilityPointSpent，满级时触发 OnSkillMaxed
+    /// </summary>
     public void TryUpgradeSkill()
     {
         if (skillSo == null)
@@ -44,7 +52,9 @@ public class SkillSlot : MonoBehaviour
         }
     }
 
-    // 在Button物体上挂EventTrigger监听右键点击，避免Button组件拦截冒泡
+    /// <summary>
+    /// 初始化：为技能按钮添加右键退还事件监听（通过 EventTrigger 避免 Button 拦截冒泡）
+    /// </summary>
     private void Start()
     {
         if (skillButton == null) return;
@@ -63,7 +73,7 @@ public class SkillSlot : MonoBehaviour
     }
 
     /// <summary>
-    /// 右键回收技能点：当前等级>0且未锁定时可退还1点
+    /// 右键退还技能点：当前等级>0且未锁定时可退还1点，但若被其他已解锁技能依赖则不允许退还
     /// </summary>
     public void TryRefundSkill()
     {
@@ -82,6 +92,9 @@ public class SkillSlot : MonoBehaviour
         UpdateUI();
     }
 
+    /// <summary>
+    /// 检查是否满足解锁条件：所有前置技能均已解锁且满级
+    /// </summary>
     public bool CanUnlockSkill()
     {
         foreach (SkillSlot slot in prerequisiteSkillSlots)
@@ -92,12 +105,18 @@ public class SkillSlot : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// 解锁技能（由 HandleSkillMaxed 在满足条件时调用）
+    /// </summary>
     public void Unlock()
     {
         isUnlocked = true;
         UpdateUI();
     }
 
+    /// <summary>
+    /// 刷新图标、按钮交互状态、等级文本
+    /// </summary>
     private void UpdateUI()
     {
         if (skillIcon != null && skillSo != null)

@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// 玩家生命值：实现 IDamageable，由敌人攻击/箭矢命中时调用 ChangeHealth
+/// </summary>
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     int IDamageable.CurrentHealth => StatsManager.Instance != null ? StatsManager.Instance.currentHealth : 0;
     int IDamageable.MaxHealth => StatsManager.Instance != null ? StatsManager.Instance.maxHealth : 0;
 
-    [SerializeField] private TMP_Text healthText;
-    [SerializeField] private Animator healthTextAnim;
+    [SerializeField] private TMP_Text healthText;         // 血量文本显示
+    [SerializeField] private Animator healthTextAnim;     // 血量变化时的文本动画
 
     private void Start()
     {
@@ -24,6 +27,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
     }
 
+    /// <summary>
+    /// 生命值变更：由敌人攻击/箭矢命中时调用，更新 UI 并播放动画，血量≤0 时禁用玩家对象
+    /// </summary>
     public void ChangeHealth(int amount)
     {
         StatsManager.Instance.currentHealth += amount;

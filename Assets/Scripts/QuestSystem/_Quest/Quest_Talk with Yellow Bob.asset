@@ -16,8 +16,8 @@ MonoBehaviour:
   questDescription: "\u8BD5\u8BD5\u770B\uFF0C\u8BF4\u4E0D\u5B9A\u5B83\u6709\u4E00\u4E9B\u8BDD\u60F3\u8BF4\uFF01"
   questLevel: 88
   objectives:
-  - description: Talk to YellowBob
-    objectiveType: 0
+  - description: "\u4E0E\u9EC4\u8272Bob\u4EA4\u6D41"
+    objectiveType: 1
     target: {fileID: 11400000, guid: cf20ea5a3b09a2c418c0e40813b438fc, type: 2}
     requiredAmount: 1
   rewards: []

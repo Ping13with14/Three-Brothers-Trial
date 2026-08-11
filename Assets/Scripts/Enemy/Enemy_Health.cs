@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 敌人生命值：实现 IDamageable，管理受击、死亡、经验奖励
+/// </summary>
 public class Enemy_Health : MonoBehaviour, IDamageable
 {
-    public int expReward = 3;
-
-    // 怪物被击败时通过 GameEvents 通知各系统
-
-    public int currentHealth;
-    public int maxHealth;
+    [Header("属性")]
+    public int expReward = 3;          // 击败后奖励的经验值
+    public int currentHealth;          // 当前生命值
+    public int maxHealth;              // 最大生命值
 
     int IDamageable.CurrentHealth => currentHealth;
     int IDamageable.MaxHealth => maxHealth;
 
     /// <summary>
-    /// 全局配置引用，用于获取敌人默认数值（挂载后自动查找）
+    /// 从 GameConfig 加载默认数值（如未在 Inspector 中设置）
     /// </summary>
     private void Awake()
     {
@@ -37,6 +38,9 @@ public class Enemy_Health : MonoBehaviour, IDamageable
         currentHealth = maxHealth;
     }
 
+    /// <summary>
+    /// 生命值变更：由玩家攻击/箭矢命中时调用，血量≤0 时触发死亡流程（播放音效、触发事件、销毁对象）
+    /// </summary>
     public void ChangeHealth(int amount)
     {
         currentHealth += amount;
@@ -46,6 +50,9 @@ public class Enemy_Health : MonoBehaviour, IDamageable
         }
         else if (currentHealth <= 0)
         {
+            // 播放死亡音效
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySFX("死亡_Death");
             GameEvents.OnMonsterDefeated?.Invoke(expReward);
             Destroy(gameObject);
         }

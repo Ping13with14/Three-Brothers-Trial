@@ -15,15 +15,24 @@ public class ShopKeeper : MonoBehaviour
     [SerializeField] private List<ShopItems> shopWeapons;
     [SerializeField] private List<ShopItems> shopArmour;
 
-    [SerializeField] private Camera shopkeeperCam;
+    [SerializeField] private Camera shopkeeperCam;         // 优先使用手动拖入的引用，为空时自动查找
     [SerializeField] private Vector3 cameraOffset = new Vector3(0, 0, -1);
 
     public static event Action<ShopManager, bool> OnShopStateChange;
 
     private bool playerInRange;
 
+    /// <summary>
+    /// 自动查找 ShopKeeperCamera 和 ShopCanvas（防止场景切换后手动拖入的引用丢失）
+    /// </summary>
+    private void Awake()
+    {
+        if (shopkeeperCam == null)
+            shopkeeperCam = GameObject.Find("ShopKeeperCamera")?.GetComponent<Camera>();
+        if (shopCanvasGroup == null)
+            shopCanvasGroup = GameObject.Find("ShopCanvas")?.GetComponent<CanvasGroup>();
+    }
 
-    // Update is called once per frame
     void Update()
     {
         if (playerInRange)
