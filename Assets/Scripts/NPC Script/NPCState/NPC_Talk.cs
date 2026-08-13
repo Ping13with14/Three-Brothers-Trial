@@ -52,7 +52,7 @@ public class NPC_Talk : MonoBehaviour
     private void OnDisable()
     {
         rb.isKinematic = false;
-        interactAnim.Play("Close");
+        //interactAnim.Play("Close");
     }
 
     /// <summary>

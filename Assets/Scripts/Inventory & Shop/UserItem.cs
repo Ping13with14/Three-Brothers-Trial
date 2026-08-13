@@ -14,21 +14,28 @@ public class UserItem : MonoBehaviour
     {
         if (StatsManager.Instance == null) return;
 
-        // 先更新最大生命值，再更新当前生命值，确保血量不受旧上限限制
-        if(itemSo.maxHealth > 0)
-            StatsManager.Instance.UpdateMaxHealth(itemSo.maxHealth);
-        if(itemSo.currentHealth > 0)
-            StatsManager.Instance.UpdateHealth(itemSo.currentHealth);
-        if(itemSo.speed > 0)
-            StatsManager.Instance.UpdateSpeed(itemSo.speed);
-        if(itemSo.damage > 0)
-            StatsManager.Instance.UpdateDamage(itemSo.damage);
+        Coroutine active = null;
+        // 时效物品重复使用时仅刷新持续时间，不重复叠加属性
+        bool isRefresh = itemSo.duration > 0 && activeEffects.TryGetValue(itemSo, out active) && active != null;
+
+        if (!isRefresh)
+        {
+            // 先更新最大生命值，再更新当前生命值，确保血量不受旧上限限制
+            if(itemSo.maxHealth > 0)
+                StatsManager.Instance.UpdateMaxHealth(itemSo.maxHealth);
+            if(itemSo.currentHealth > 0)
+                StatsManager.Instance.UpdateHealth(itemSo.currentHealth);
+            if(itemSo.speed > 0)
+                StatsManager.Instance.UpdateSpeed(itemSo.speed);
+            if(itemSo.damage > 0)
+                StatsManager.Instance.UpdateDamage(itemSo.damage);
+        }
 
         // 时效物品：重复使用时停止旧计时器，刷新持续时间
         if(itemSo.duration > 0)
         {
-            if (activeEffects.TryGetValue(itemSo, out var existing) && existing != null)
-                StopCoroutine(existing);
+            if (isRefresh)
+                StopCoroutine(active);
             activeEffects[itemSo] = StartCoroutine(EffectTimer(itemSo, itemSo.duration));
         }
     }

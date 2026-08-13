@@ -50,8 +50,11 @@ public class Arrow : MonoBehaviour
     {
         if((enemyLayer.value & ( 1 << collision.gameObject.layer)) > 0 )
         {
-            collision.gameObject.GetComponent<Enemy_Health>().ChangeHealth(-damage);
-            collision.gameObject.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+            var health = collision.gameObject.GetComponent<Enemy_Health>();
+            health.ChangeHealth(-damage);
+            // 敌人死亡后会被回收/销毁并设为非活跃，此时再启动击退协程会报错，故仅对存活敌人击退
+            if (health.currentHealth > 0)
+                collision.gameObject.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
             AttachToTarget(collision.gameObject.transform);
         }
         else if ((obstacleLayer.value & (1 << collision.gameObject.layer)) > 0)

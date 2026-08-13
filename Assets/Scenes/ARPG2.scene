@@ -4765,6 +4765,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 394876825}
     - target: {fileID: 7328780541962501049, guid: cd222f3b9b3e56d4c9a63c39cdb5b2a1, type: 3}
+      propertyPath: m_Damping
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328780541962501049, guid: cd222f3b9b3e56d4c9a63c39cdb5b2a1, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 893982715}
@@ -4782,14 +4786,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 156695798414819803, guid: cd222f3b9b3e56d4c9a63c39cdb5b2a1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1022706563}
+      addedObject: {fileID: 1022706566}
   m_SourcePrefab: {fileID: 100100000, guid: cd222f3b9b3e56d4c9a63c39cdb5b2a1, type: 3}
 --- !u!1 &1022706562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 156695798414819803, guid: cd222f3b9b3e56d4c9a63c39cdb5b2a1, type: 3}
   m_PrefabInstance: {fileID: 1022706561}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1022706563
+--- !u!114 &1022706566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28279,6 +28283,10 @@ PrefabInstance:
     - target: {fileID: 5561523606942838480, guid: f884aff84a05e024cb0b621f59ebbe79, type: 3}
       propertyPath: m_Name
       value: Confiner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5561523606942838480, guid: f884aff84a05e024cb0b621f59ebbe79, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

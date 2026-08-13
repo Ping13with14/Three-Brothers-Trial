@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09790489b32008944b041c7f6b2008ce, type: 3}
+  m_Name: Enemy_torch
+  m_EditorClassIdentifier: 
+  enemyName: Enemy
+  prefab: {fileID: 1222623135486693687, guid: b104caa32709f05448483aa678349137, type: 3}
+  maxHealth: 30
+  damage: 10
+  attackRange: 1.5
+  attackCooldown: 2
+  knockBackForce: 5
+  stunTime: 0.3
+  speed: 3
+  detectRange: 5
+  expReward: 3
+  canPatrol: 1
+  patrolRadius: 3
+  patrolPauseTime: 1.5

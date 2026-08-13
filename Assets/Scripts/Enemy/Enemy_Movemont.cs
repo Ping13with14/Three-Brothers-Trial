@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 敌人移动与状态机：根据玩家距离切换 Idle/Chasing/Attacking 状态
+/// 敌人移动与状态机：根据玩家距离切换 Idle/Patrol/Chasing/Attacking/Knockback 状态
 /// </summary>
 public class Enemy_Movemont : MonoBehaviour
 {
@@ -15,9 +15,20 @@ public class Enemy_Movemont : MonoBehaviour
     public Transform detectionPoint;      // 检测范围圆心位置
     public LayerMask playerLayer;         // 玩家所在图层
 
+    [Header("巡逻参数")]
+    public bool canPatrol = false;        // 是否具备巡逻能力
+    public float patrolRadius = 3f;       // 巡逻范围半径（从出生点算起）
+    public float patrolPauseTime = 1.5f;  // 到达巡逻点后停顿时间（秒）
+
     private float attackCooldownTimer;    // 攻击冷却计时器
     private int facingDirection=1;        // 朝向：1=右，-1=左
     private EnemyState enemyState;        // 当前状态
+
+    // 巡逻
+    private Vector2 patrolOrigin;         // 巡逻原点（出生位置）
+    private Vector2 patrolTarget;         // 当前巡逻目标点
+    private bool isPatrolPaused;          // 巡逻是否在停顿中
+    private Coroutine patrolPauseCoroutine;
 
     // 组件引用
     private Rigidbody2D rb;
@@ -29,7 +40,17 @@ public class Enemy_Movemont : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim=GetComponent<Animator>();
-        ChangeState(EnemyState.Idle);
+        patrolOrigin = transform.position;
+        ChangeState(canPatrol ? EnemyState.Patrol : EnemyState.Idle);
+    }
+
+    /// <summary>
+    /// 由 Enemy.Initialize() 调用：设置巡逻原点并切换到初始状态
+    /// </summary>
+    public void Initialize()
+    {
+        patrolOrigin = transform.position;
+        ChangeState(canPatrol ? EnemyState.Patrol : EnemyState.Idle);
     }
 
     void Update()
@@ -47,13 +68,63 @@ public class Enemy_Movemont : MonoBehaviour
             {
                 Chase();
             }
+            else if (enemyState == EnemyState.Patrol && !isPatrolPaused)
+            {
+                PatrolBehavior();
+            }
             else if (enemyState == EnemyState.Attacking)
             {
                 // 攻击状态：原地不动，攻击动作由动画事件 Enemy_Combat.Attack() 触发伤害
                 rb.velocity = Vector2.zero;
-
             }
         }
+    }
+
+    /// <summary>
+    /// 巡逻行为：向目标点移动，到达后停顿再选新目标
+    /// </summary>
+    private void PatrolBehavior()
+    {
+        if (Vector2.Distance(transform.position, patrolTarget) < 0.1f)
+        {
+            if (patrolPauseCoroutine == null)
+                patrolPauseCoroutine = StartCoroutine(PatrolPause());
+            return;
+        }
+
+        // 面向目标方向
+        if (patrolTarget.x > transform.position.x && facingDirection == -1 ||
+            patrolTarget.x < transform.position.x && facingDirection == 1)
+        {
+            Flip();
+        }
+
+        Vector2 direction = (patrolTarget - (Vector2)transform.position).normalized;
+        rb.velocity = direction * speed;
+    }
+
+    /// <summary>
+    /// 巡逻停顿：到达目标点后停顿并选取下一个随机目标点
+    /// </summary>
+    private IEnumerator PatrolPause()
+    {
+        isPatrolPaused = true;
+        rb.velocity = Vector2.zero;
+        anim.SetBool("isIdle", true);
+        yield return new WaitForSeconds(patrolPauseTime);
+        anim.SetBool("isIdle", false);
+        PickNewPatrolTarget();
+        isPatrolPaused = false;
+        patrolPauseCoroutine = null;
+    }
+
+    /// <summary>
+    /// 在巡逻半径内随机选一个目标点
+    /// </summary>
+    private void PickNewPatrolTarget()
+    {
+        Vector2 randomOffset = Random.insideUnitCircle * patrolRadius;
+        patrolTarget = patrolOrigin + randomOffset;
     }
 
     /// <summary>
@@ -80,7 +151,7 @@ public class Enemy_Movemont : MonoBehaviour
     }
 
     /// <summary>
-    /// 检测玩家：范围内发现玩家则切换到追逐或攻击状态，丢失玩家则回到 Idle
+    /// 检测玩家：范围内发现玩家则切换到追逐或攻击，丢失玩家则回到巡逻或待机
     /// </summary>
     private void CheckForPlayer()
     {
@@ -102,8 +173,12 @@ public class Enemy_Movemont : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
-            ChangeState(EnemyState.Idle);
+            // 丢失玩家后：有巡逻能力的回到 Patrol，否则回 Idle
+            if (enemyState == EnemyState.Chasing || enemyState == EnemyState.Attacking)
+            {
+                rb.velocity = Vector2.zero;
+                ChangeState(canPatrol ? EnemyState.Patrol : EnemyState.Idle);
+            }
         }
     }
 
@@ -112,6 +187,9 @@ public class Enemy_Movemont : MonoBehaviour
     /// </summary>
     public void ChangeState(EnemyState newState)
     {
+        if (enemyState == newState)
+            return;
+
         // 退出当前状态的动画
         if (enemyState == EnemyState.Idle)
             anim.SetBool("isIdle",false);
@@ -126,6 +204,11 @@ public class Enemy_Movemont : MonoBehaviour
         // 开启新状态的动画
         if (enemyState == EnemyState.Idle)
             anim.SetBool("isIdle", true);
+        else if (enemyState == EnemyState.Patrol)
+        {
+            isPatrolPaused = false;
+            PickNewPatrolTarget();
+        }
         else if (enemyState == EnemyState.Chasing)
             anim.SetBool("isChasing", true);
         else if (enemyState == EnemyState.Attacking)
@@ -133,12 +216,19 @@ public class Enemy_Movemont : MonoBehaviour
     }
 
     /// <summary>
-    /// 编辑器可视化：绘制玩家检测范围
+    /// 编辑器可视化：绘制玩家检测范围和巡逻范围
     /// </summary>
      private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
+
+        if (canPatrol)
+        {
+            Gizmos.color = Color.green;
+            Vector2 origin = Application.isPlaying ? patrolOrigin : (Vector2)transform.position;
+            Gizmos.DrawWireCube(origin, new Vector2(patrolRadius * 2, patrolRadius * 2));
+        }
     }
 }
 
@@ -148,6 +238,7 @@ public class Enemy_Movemont : MonoBehaviour
 public enum EnemyState
 {
     Idle,       // 待机
+    Patrol,     // 巡逻（在出生点附近游荡）
     Chasing,    // 追逐玩家
     Attacking,  // 攻击中
     Knockback   // 被击退/眩晕

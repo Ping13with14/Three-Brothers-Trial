@@ -54,7 +54,13 @@ public class Enemy_Health : MonoBehaviour, IDamageable
             if (AudioManager.Instance != null)
                 AudioManager.Instance.PlaySFX("死亡_Death");
             GameEvents.OnMonsterDefeated?.Invoke(expReward);
-            Destroy(gameObject);
+
+            // 优先走对象池回收，无池则销毁（向后兼容手动放置的敌人）
+            var enemy = GetComponent<Enemy>();
+            if (Enemy.Pool != null && enemy != null)
+                Enemy.Pool.Return(enemy);
+            else
+                Destroy(gameObject);
         }
     }
 }

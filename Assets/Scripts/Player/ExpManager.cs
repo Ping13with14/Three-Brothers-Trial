@@ -58,7 +58,8 @@ public class ExpManager : MonoBehaviour
     public void GainExperience(int amount)
     {
         currentExp += amount;
-        if (currentExp >= expToLevel)
+        // 用 while 处理一次获得大量经验时可能连升多级的情况
+        while (currentExp >= expToLevel)
         {
             LevelUp();
         }

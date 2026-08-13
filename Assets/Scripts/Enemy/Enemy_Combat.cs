@@ -23,8 +23,12 @@ public class Enemy_Combat : MonoBehaviour
 
         if(hits.Length > 0)
         {
-            hits[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
-            hits[0].GetComponent<PlayerMovement>().Knockback(transform, knockBackForce,stunTime);
+            var damageable = hits[0].GetComponent<IDamageable>();
+            damageable.ChangeHealth(-damage);
+
+            // 玩家死亡后会被禁用，此时再启动击退协程会报错，故仅对存活玩家击退
+            if (damageable.CurrentHealth > 0)
+                hits[0].GetComponent<PlayerMovement>().Knockback(transform, knockBackForce, stunTime);
         }
     }
 }

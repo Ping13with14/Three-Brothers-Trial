@@ -16,11 +16,12 @@ public class SkillManger : MonoBehaviour
     }
 
     /// <summary>
-    /// 启用时订阅技能点消耗事件
+    /// 启用时订阅技能点消耗与退还事件
     /// </summary>
     private void OnEnable()
     {
         GameEvents.OnAbilityPointSpent += HandleAbilityPointSpent;
+        GameEvents.OnAbilityPointRefunded += HandleAbilityPointRefunded;
     }
 
     /// <summary>
@@ -29,6 +30,7 @@ public class SkillManger : MonoBehaviour
     private void OnDisable()
     {
         GameEvents.OnAbilityPointSpent -= HandleAbilityPointSpent;
+        GameEvents.OnAbilityPointRefunded -= HandleAbilityPointRefunded;
     }
 
     /// <summary>
@@ -40,7 +42,7 @@ public class SkillManger : MonoBehaviour
 
         switch(skillName)
         {
-            case "最大血量":
+            case "血量增加":
                 StatsManager.Instance.UpdateMaxHealth(1);
                 break;
 
@@ -50,6 +52,29 @@ public class SkillManger : MonoBehaviour
 
             default:
                 Debug.LogWarning("正在点击技能" + skillName);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 处理技能退还：由 GameEvents.OnAbilityPointRefunded 回调，按技能名称还原对应的属性/功能效果
+    /// </summary>
+    private void HandleAbilityPointRefunded(SkillSlot slot)
+    {
+        string skillName = slot.skillSo.skillName;
+
+        switch(skillName)
+        {
+            case "血量增加":
+                StatsManager.Instance.UpdateMaxHealth(-1);
+                break;
+
+            case "挥砍":
+                combat.enabled = false;
+                break;
+
+            default:
+                Debug.LogWarning("正在退还技能" + skillName);
                 break;
         }
     }

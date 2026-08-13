@@ -53,7 +53,8 @@ public class PlayerCombat : MonoBehaviour
                 damageable.ChangeHealth(-StatsManager.Instance.damage);
 
             var knockbackable = enemies[0].GetComponent<IKnockbackable>();
-            if (knockbackable != null)
+            // 敌人死亡后会被回收/销毁并设为非活跃，此时再启动击退协程会报错，故仅对存活敌人击退
+            if (knockbackable != null && damageable != null && damageable.CurrentHealth > 0)
                 knockbackable.Knockback(transform, StatsManager.Instance.knockbackForce, StatsManager.Instance.knockbackTime, StatsManager.Instance.stunTime);
 
             // 播放受击音效
